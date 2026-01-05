@@ -1,0 +1,148 @@
+
+<div class="relative min-h-screen w-full bg-gradient-to-br from-rose-50 via-pink-100 to-lavender-100 overflow-hidden flex flex-col items-center justify-center">
+  
+  <!-- Ambient Background Particles -->
+  <app-heart-particles></app-heart-particles>
+
+  <!-- Main Narrative Container -->
+  <main class="relative z-10 w-full max-w-2xl px-6 py-12 text-center">
+    
+    <!-- Step 0: The Dedication (Sacred Content) -->
+    @if (currentStep() === 0) {
+      <div class="reveal-item flex flex-col items-center gap-8">
+        <h2 class="text-rose-400 font-serif-elegant tracking-widest text-xl uppercase animate-pulse-slow">Dedicated to the one I love</h2>
+        <h1 class="text-6xl md:text-8xl font-serif-elegant text-rose-600 font-bold drop-shadow-sm">
+          FOR <span class="text-pink-500">ANTAR !</span>
+        </h1>
+        <div class="h-1 w-24 bg-rose-300 rounded-full mx-auto my-4"></div>
+        <p class="text-rose-700 font-handwritten text-3xl md:text-4xl leading-relaxed">
+          I've written this for you, because my heart needed a way to reach yours.
+        </p>
+        <button 
+          (click)="nextStep()"
+          class="mt-10 px-8 py-3 bg-white/60 hover:bg-rose-500 hover:text-white transition-all duration-500 rounded-full border border-rose-200 text-rose-500 font-medium tracking-wide flex items-center gap-2 group"
+        >
+          Open My Heart
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </button>
+      </div>
+    }
+
+    <!-- Step 1: The Sincere Apology -->
+    @if (currentStep() === 1) {
+      <div class="reveal-item flex flex-col items-center gap-6">
+        <span class="text-sm font-sans-clean text-rose-400 uppercase tracking-widest mb-4">A Sincere Note</span>
+        <h2 class="text-5xl md:text-6xl font-serif-elegant text-rose-800 italic">I am so Sorry...</h2>
+        <div class="glass-card p-8 rounded-2xl shadow-xl border-rose-100 mt-4 max-w-md">
+          <p class="text-rose-900 leading-relaxed text-lg font-light">
+            I know I made a mistake, and it weighs heavy on my soul. Please forgive me for the hurt I've caused. My intention was never to pain you, for you are my world's light.
+          </p>
+        </div>
+        <div class="flex gap-4 mt-8">
+          <button (click)="prevStep()" class="text-rose-400 hover:text-rose-600">Back</button>
+          <button 
+            (click)="nextStep()"
+            class="px-10 py-3 bg-rose-500 text-white rounded-full shadow-lg shadow-rose-200 hover:bg-rose-600 transition-all font-medium"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- Step 2: Longing & Connection -->
+    @if (currentStep() === 2) {
+      <div class="reveal-item flex flex-col items-center gap-6">
+        <div class="relative w-32 h-32 mb-4">
+          <div class="absolute inset-0 bg-rose-400 rounded-full opacity-20 animate-ping"></div>
+          <div class="absolute inset-4 bg-rose-500 rounded-full flex items-center justify-center text-white text-4xl shadow-lg">
+            ❤
+          </div>
+        </div>
+        <h2 class="text-4xl md:text-5xl font-serif-elegant text-rose-900 leading-tight">
+          "I really want to meet you and <span class="text-rose-500 italic">hug you</span>"
+        </h2>
+        <p class="text-rose-700/80 max-w-sm text-center font-light italic mt-2">
+          Every mile between us feels like a lifetime. My arms are empty without you, and I long for the warmth of your embrace.
+        </p>
+        <div class="flex gap-4 mt-12">
+          <button (click)="prevStep()" class="text-rose-400 hover:text-rose-600">Back</button>
+          <button (click)="nextStep()" class="px-10 py-3 bg-white/80 text-rose-600 border border-rose-200 rounded-full shadow-sm hover:bg-rose-50 transition-all font-medium">Keep Reading</button>
+        </div>
+      </div>
+    }
+
+    <!-- Step 3: Hopeful Future -->
+    @if (currentStep() === 3) {
+      <div class="reveal-item flex flex-col items-center gap-8">
+        <h2 class="text-5xl font-serif-elegant text-rose-900">A Promise of Tomorrow</h2>
+        <div class="relative px-8 py-10 bg-white/40 rounded-3xl border border-white/50 backdrop-blur-sm shadow-inner">
+           <p class="text-rose-800 text-2xl font-handwritten leading-loose">
+             "Our long-distance <span class="underline decoration-rose-300 underline-offset-8">will end one day</span>."
+           </p>
+           <p class="mt-6 text-rose-700 text-sm font-sans-clean leading-relaxed uppercase tracking-tighter opacity-70">
+             Soon, distance will be just a memory, and we will be together forever.
+           </p>
+        </div>
+        <div class="flex gap-4">
+          <button (click)="prevStep()" class="text-rose-400 hover:text-rose-600">Back</button>
+          <button (click)="nextStep()" class="px-10 py-3 bg-rose-500 text-white rounded-full shadow-lg shadow-rose-200 hover:bg-rose-600 transition-all font-medium">The Final Word</button>
+        </div>
+      </div>
+    }
+
+    <!-- Step 4: Eternal Love & Closing -->
+    @if (currentStep() === 4) {
+      <div class="reveal-item flex flex-col items-center gap-8">
+        <div class="animate-pulse-slow">
+           <h2 class="text-6xl md:text-7xl font-handwritten text-rose-600 font-bold">
+            I will love you forever
+           </h2>
+        </div>
+        
+        <div class="mt-12 glass-card rounded-2xl p-8 w-full max-w-md mx-auto border-dashed border-rose-300">
+           <p class="text-rose-400 uppercase tracking-widest text-xs mb-4">A Message of Healing</p>
+           
+           @if (!aiPoem()) {
+             <p class="text-rose-800 italic mb-6">Want to hear a poem for our future?</p>
+             <button 
+               (click)="generateHealingWords()"
+               [disabled]="isGenerating()"
+               class="px-6 py-2 bg-rose-100 text-rose-600 rounded-lg hover:bg-rose-200 transition-colors disabled:opacity-50"
+             >
+               {{ isGenerating() ? 'Thinking of you...' : 'Generate a Healing Verse' }}
+             </button>
+           } @else {
+             <div class="text-left text-rose-900 font-serif-elegant leading-relaxed whitespace-pre-wrap">
+               {{ aiPoem() }}
+             </div>
+             <button (click)="aiPoem.set('')" class="mt-6 text-xs text-rose-400 hover:text-rose-600 underline">Generate another</button>
+           }
+        </div>
+
+        <div class="mt-12 space-y-4">
+          <p class="text-rose-400 italic font-handwritten text-2xl">Forever yours,</p>
+          <p class="text-rose-900 font-serif-elegant text-xl tracking-widest">Always Me.</p>
+        </div>
+
+        <button (click)="currentStep.set(0)" class="mt-12 text-rose-300 hover:text-rose-500 transition-colors flex items-center gap-2">
+           <span class="text-xl">↺</span> Start our journey again
+        </button>
+      </div>
+    }
+
+  </main>
+
+  <!-- Navigation Dots -->
+  <footer class="fixed bottom-10 z-20 flex gap-4">
+    @for (step of [0, 1, 2, 3, 4]; track step) {
+      <div 
+        class="w-2 h-2 rounded-full transition-all duration-500"
+        [class.bg-rose-500]="currentStep() === step"
+        [class.w-8]="currentStep() === step"
+        [class.bg-rose-200]="currentStep() !== step"
+      ></div>
+    }
+  </footer>
+
+</div>
